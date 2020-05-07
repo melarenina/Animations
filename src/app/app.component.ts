@@ -30,4 +30,17 @@ export class AppComponent {
     onDelete(item) {
       this.list.splice(this.list.indexOf(item), 1);
     }
+
+    onAnimate(){
+
+      if (this.state === 'normal'){
+        this.state = 'highlighted';
+      }else{
+        this.state = 'normal';
+      }
+    }
+
+    onShrink(){
+
+    }
 }
