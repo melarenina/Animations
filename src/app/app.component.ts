@@ -47,7 +47,17 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
       transition('highlighted => normal', animate(800)),
       transition('normal => highlighted', animate(300)),
-      transition('shrunken <=> *', animate(500)), // No matter in which state it is, this animation will happen
+      transition('shrunken <=> *', // No matter in which state it is, this animation will happen
+        [
+          style({
+            backgroundColor: 'orange'
+          }),
+          animate(1000, style({
+            borderRadius: '50px'
+          })),
+          animate(500) // This will be executed after the border radius
+        ]
+      ),
 
       // "=>" From normal to highlited and the other way arround
       // Number of miliseconds it should take to animate
