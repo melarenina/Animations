@@ -63,8 +63,33 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       // Number of miliseconds it should take to animate
       // transition('normal <=> highlighted', animate(300)),
 
-    ])
+    ]),
     // -----------------------------------------WILD TRIGGER-----------------------------------------
+
+    // -----------------------------------------SIMPLE TRIGGER-----------------------------------------
+    trigger('list1', [
+
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+
+      transition('void => *', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-100px)'
+        }),
+        animate(300),
+      ]),
+
+      transition('* => void', [
+        animate(300, style({ // The style after the animate is the final state
+          transform: 'translateX(+100px)',
+          opacity: 0
+        })),
+      ])
+    ]),
+    // -----------------------------------------SIMPLE TRIGGER-----------------------------------------
   ]
 })
 export class AppComponent {
