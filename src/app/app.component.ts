@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -125,10 +125,15 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
       ]),
 
       transition('* => void', [
-        animate(300, style({ // The style after the animate is the final state
-          transform: 'translateX(+100px)',
-          opacity: 0
-        })),
+        group([
+          animate(300, style({ // The style after the animate is the final state
+            color: 'red'
+          })),
+          animate(800, style({ // The style after the animate is the final state
+            transform: 'translateX(+100px)',
+            opacity: 0
+          }))
+        ])
       ])
     ]),
     // -----------------------------------------LIST2 TRIGGER-----------------------------------------
