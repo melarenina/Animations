@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -66,7 +66,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]),
     // -----------------------------------------WILD TRIGGER-----------------------------------------
 
-    // -----------------------------------------SIMPLE TRIGGER-----------------------------------------
+    // -----------------------------------------LIST1 TRIGGER-----------------------------------------
     trigger('list1', [
 
       state('in', style({
@@ -89,7 +89,41 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         })),
       ])
     ]),
-    // -----------------------------------------SIMPLE TRIGGER-----------------------------------------
+    // -----------------------------------------LIST1 TRIGGER-----------------------------------------
+
+    // -----------------------------------------LIST2 TRIGGER-----------------------------------------
+    trigger('list2', [
+
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+
+      transition('void => *', [
+        animate(1000, keyframes([
+          style({
+            transform: 'translateX(-100px)',
+            opacity: 0
+          }),
+          style({
+            transform: 'translateX(-50px)',
+            opacity: 0.5
+          }),
+          style({
+            transform: 'translateX(-20px)',
+            opacity: 1
+          })
+        ]))
+      ]),
+
+      transition('* => void', [
+        animate(300, style({ // The style after the animate is the final state
+          transform: 'translateX(+100px)',
+          opacity: 0
+        })),
+      ])
+    ]),
+    // -----------------------------------------LIST2 TRIGGER-----------------------------------------
   ]
 })
 export class AppComponent {
