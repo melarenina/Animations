@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { trigger, state, style } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +7,21 @@ import { trigger, state, style } from '@angular/animations';
   styleUrls: ['./app.component.css'],
   animations: [
     trigger('divState', [
+
       state('normal', style({
         'background-color': 'red',
         transform: 'translateX(0)'
       })),
+
       state('highlighted', style({
         backgroundColor: 'blue',
         transform: 'translateX(100px)'
-      }))
+      })),
+
+      // "=>" From normal to highlited    Number of miliseconds it should take to animate
+      transition('normal => highlighted', animate(300)),
+      transition('highlighted => normal', animate(800))
+
     ])
   ]
 })
