@@ -6,6 +6,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
+    // -----------------------------------------SIMPLE TRIGGER-----------------------------------------
     trigger('divState', [
 
       state('normal', style({
@@ -18,17 +19,49 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         transform: 'translateX(100px)'
       })),
 
-      // "=>" From normal to highlited    Number of miliseconds it should take to animate
+      // "=>" From normal to highlited and the other way arround
+      // Number of miliseconds it should take to animate
+      transition('normal <=> highlighted', animate(300)),
+      // transition('highlighted => normal', animate(800))
+
+    ]),
+    // -----------------------------------------SIMPLE TRIGGER-----------------------------------------
+
+    // -----------------------------------------WILD TRIGGER-----------------------------------------
+    trigger('wildState', [
+
+      state('normal', style({
+        'background-color': 'red',
+        transform: 'translateX(0) scale(1)'
+      })),
+
+      state('highlighted', style({
+        backgroundColor: 'blue',
+        transform: 'translateX(100px) scale(1)'
+      })),
+
+      state('shrunken', style({
+        backgroundColor: 'green',
+        transform: 'translateX(0px) scale(0.5)'
+      })),
+
+      transition('highlighted => normal', animate(800)),
       transition('normal => highlighted', animate(300)),
-      transition('highlighted => normal', animate(800))
+      transition('shrunken <=> *', animate(500)), // No matter in which state it is, this animation will happen
+
+      // "=>" From normal to highlited and the other way arround
+      // Number of miliseconds it should take to animate
+      // transition('normal <=> highlighted', animate(300)),
 
     ])
+    // -----------------------------------------WILD TRIGGER-----------------------------------------
   ]
 })
 export class AppComponent {
 
   list = ['Milk', 'Sugar', 'Bread'];
   state = 'normal';
+  wildState = 'normal';
 
     onAdd(item) {
       this.list.push(item);
@@ -40,14 +73,12 @@ export class AppComponent {
 
     onAnimate(){
 
-      if (this.state === 'normal'){
-        this.state = 'highlighted';
-      }else{
-        this.state = 'normal';
-      }
+      this.state === 'normal' ? this.state = 'highlighted' : this.state = 'normal';
+      this.wildState === 'normal' ? this.wildState = 'highlighted' : this.wildState = 'normal';
+
     }
 
     onShrink(){
-
+      this.wildState = 'shrunken';
     }
 }
